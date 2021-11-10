@@ -7,28 +7,27 @@
         <div class="card-header bg-transparent">
             <div class="text-muted text-center mt-2 mb-2"><h1>{{ $title }}</h1></div>
         </div>
+        <div class="card-body px-lg-5 py-lg-3">
+            @if (session()->has('login_errors'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                    <span class="alert-text"><strong>Gagal!</strong> {{ session('login_errors') }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
-        @if (session()->has('login_errors'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                <span class="alert-text"><strong>Gagal!</strong> {{ session('login_errors') }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
+            @if (session()->has('logout_success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                    <span class="alert-text"><strong>Sukses!</strong> {{ session('logout_success') }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
-        @if (session()->has('logout_success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                <span class="alert-text"><strong>Sukses!</strong> {{ session('login_success') }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-
-        <div class="card-body px-lg-5 py-lg-5">
             <form action="/login" method="post" role="form">
                 @csrf
                 <div class="form-group">
@@ -36,7 +35,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                         </div>
-                        <input class="form-control" name="username" placeholder="Username" type="text" required>
+                        <input class="form-control" name="username" placeholder="Username" type="text" autofocus required>
                     </div>
                     @error('username')
                     <div class="alert alert-danger">
