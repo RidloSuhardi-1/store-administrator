@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +17,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect('dashboard');
+    } else {
+        return redirect('login');
+    }
 });
 
-Route::get('/login', function () {
-    return view('authentication.login', [
-        'title' => 'Login'
-    ]);
-});
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/register', function () {
-    return view('authentication.register', [
-        'title' => 'Register'
-    ]);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'register']);
+
+// Pages
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function() {
+        return view('dashboard.index', [
+            'title' => 'Beranda'
+        ]);
+    });
+
 });

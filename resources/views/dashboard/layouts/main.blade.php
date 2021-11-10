@@ -22,12 +22,12 @@
 
 <body>
   <!-- Sidenav -->
-  @include('partials.sidebar')
+  @include('dashboard.partials.sidebar')
 
   <!-- Main content -->
   <div class="main-content" id="panel">
     <!-- Topnav -->
-    @include('partials.topbar')
+    @include('dashboard.partials.topbar')
 
     <!-- Header -->
     <div class="header bg-primary pb-6">
