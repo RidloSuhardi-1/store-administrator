@@ -3,7 +3,7 @@
         <!-- Brand -->
         <div class="sidenav-header  d-flex  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-            <img src="assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <img src="{{ url('assets/img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
         </a>
         <div class=" ml-auto ">
             <!-- Sidenav toggler -->
@@ -22,33 +22,33 @@
             <!-- Nav items -->
             <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="/beranda">
+                <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Beranda</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#navbar-products" data-toggle="collapse" role="button" aria-expanded="false"
+                <a class="nav-link {{ Request::is('products*') ? 'active' : '' }} {{ Request::is('categories*') ? 'active' : '' }}" href="#navbar-products" data-toggle="collapse" role="button" aria-expanded="false"
                 aria-controls="navbar-products">
-                <i class="ni ni-box-2 text-orange"></i>
-                <span class="nav-link-text">Barang</span>
+                    <i class="ni ni-box-2 text-orange"></i>
+                    <span class="nav-link-text">Barang</span>
                 </a>
                 <div class="collapse" id="navbar-products">
                 <ul class="nav nav-sm flex-column">
                     <li class="nav-item">
-                    <a href="/products" class="nav-link">
+                    <a href="{{ route('products.index') }}" class="nav-link {{ Request::is('products*') ? 'active' : '' }}">
                         <span class="sidenav-mini-icon"> D </span>
                         <span class="sidenav-normal"> Daftar Barang </span>
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="/product-categories" class="nav-link">
+                    <a href="{{ route('categories.index') }}" class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
                         <span class="sidenav-mini-icon"> K </span>
                         <span class="sidenav-normal"> Kategori Barang </span>
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="/product-problems" class="nav-link">
+                    <a href="/product-problems" class="nav-link {{ Request::is('products/problem*') ? 'active' : '' }}">
                         <span class="sidenav-mini-icon"> B </span>
                         <span class="sidenav-normal"> Barang Bermasalah </span>
                     </a>
@@ -57,13 +57,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/suppliers">
+                <a class="nav-link {{ Request::is('suppliers*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
                 <i class="ni ni-delivery-fast text-primary"></i>
                 <span class="nav-link-text">Pemasok</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/customers">
+                <a class="nav-link {{ Request::is('customers*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
                 <i class="ni ni-single-02 text-yellow"></i>
                 <span class="nav-link-text">Pelanggan</span>
                 </a>
