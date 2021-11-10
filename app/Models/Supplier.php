@@ -21,6 +21,11 @@ class Supplier extends Model
         ];
     }
 
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
     /**
      * Get the route key for the model.
      *
