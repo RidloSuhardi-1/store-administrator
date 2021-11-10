@@ -36,9 +36,11 @@ Route::middleware(['auth'])->group(function () {
         ]);
     });
 
+    Route::get('categories/checkSlug', [CategoryController::class, 'checkSlug']);
     Route::get('suppliers/checkSlug', [SupplierController::class, 'checkSlug']);
     Route::get('customers/checkSlug', [CustomerController::class, 'checkSlug']);
 
+    Route::resource('categories', CategoryController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('customers', CustomerController::class);
 });
