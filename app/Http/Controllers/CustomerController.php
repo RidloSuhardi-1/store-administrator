@@ -94,7 +94,7 @@ class CustomerController extends Controller
 
         if (($request->slug != $customer->slug) && ($request->phone != $customer->phone)) {
             $rules['slug'] = 'required|unique:customers';
-            $rules['phone'] = 'required|numeric|unique:customers|min:5';
+            $rules['phone'] = 'required|numeric|unique:customers|min:10';
         }
 
         $validated = $request->validate($rules);

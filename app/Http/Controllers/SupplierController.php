@@ -95,7 +95,7 @@ class SupplierController extends Controller
 
         if (($request->slug != $supplier->slug) && ($request->phone != $supplier->phone)) {
             $rules['slug'] = 'required|unique:suppliers';
-            $rules['phone'] = 'required|numeric|unique:suppliers|min:5';
+            $rules['phone'] = 'required|numeric|unique:suppliers|min:10';
         }
 
         $validated = $request->validate($rules);
@@ -103,7 +103,7 @@ class SupplierController extends Controller
         Supplier::where('id', $supplier->id)
             ->update($validated);
 
-            return redirect('suppliers')->with('update_success', 'Berhasil diubah!');
+        return redirect('suppliers')->with('update_success', 'Berhasil diubah!');
     }
 
     /**
