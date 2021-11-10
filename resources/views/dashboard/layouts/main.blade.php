@@ -7,17 +7,17 @@
   <meta name="author" content="Creative Tim">
   <title>ELNino Admin | {{ $title }}</title>
   <!-- Favicon -->
-  <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
+  <link rel="icon" href="{{ url('assets/img/brand/favicon.png"') }}" type="image/png">
   <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <link rel="stylesheet" href="{{ url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700') }}">
   <!-- Icons -->
-  <link rel="stylesheet" href="assets/vendor/nucleo/css/nucleo.css" type="text/css">
-  <link rel="stylesheet" href="assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <link rel="stylesheet" href="{{ url('assets/vendor/nucleo/css/nucleo.css') }}" type="text/css">
+  <link rel="stylesheet" href="{{ url('assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
   <!-- Page plugins -->
-  <link rel="stylesheet" href="assets/vendor/sweetalert2/dist/sweetalert2.min.css">
-  <link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="{{ url('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
+  <link rel="stylesheet" href="{{ url('assets/css/bootstrap-select.min.css') }}">
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="assets/css/argon.min23cd.css?v=1.2.1" type="text/css">
+  <link rel="stylesheet" href="{{ url('assets/css/argon.min23cd.css?v=1.2.1') }}" type="text/css">
 </head>
 
 <body>
@@ -71,20 +71,20 @@
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->
-  <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/js-cookie/js.cookie.js"></script>
-  <script src="assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="{{ url('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ url('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url('assets/vendor/js-cookie/js.cookie.js') }}"></script>
+  <script src="{{ url('assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
+  <script src="{{ url('assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
   <!-- Optional JS -->
-  <script src="assets/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="assets/js/bootstrap-select.min.js"></script>
-  <script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <script src="{{ url('assets/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+  <script src="{{ url('assets/js/bootstrap-select.min.js') }}"></script>
+  <script src="{{ url('assets/vendor/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ url('assets/vendor/chart.js/dist/Chart.extension.js') }}"></script>
   <!-- Argon JS -->
-  <script src="assets/js/argon.min23cd.js?v=1.2.1"></script>
+  <script src="{{ url('assets/js/argon.min23cd.js?v=1.2.1') }}"></script>
   <!-- Demo JS - remove this in your project -->
-  <script src="assets/js/demo.min.js"></script>
+  <script src="{{ url('assets/js/demo.min.js') }}"></script>
   <!-- User JS -->
   @yield('page-js')
 
