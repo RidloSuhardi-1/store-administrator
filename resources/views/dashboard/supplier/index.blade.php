@@ -55,9 +55,13 @@
                                 {{-- <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $supplier->phone }}>
                                     <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
                                 </button> --}}
-                                <a href="#" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $supplier->phone }}>
+                                {{-- <a href="#" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $supplier->phone }}>
                                     <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
-                                </a>
+                                </a> --}}
+                                <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact"
+                                data-phone="{{ $supplier->phone }}">
+                                    <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
+                                </button>
                             </td>
                             <td>
                                 {{ $supplier->created_at }}
@@ -163,16 +167,19 @@
     </div>
 </div>
 
+@endsection
+
+@section('page-js')
+
 <script>
-    $('#modal-contact').on('show', function(event) {
-        var link = $(event.relatedTarget)
-        var phone = link.data('phone')
+    $('#modal-contact').on('show.bs.modal', function (event) {
+        var link = $(event.relatedTarget);
+        var phone = link.data("phone");
 
-        var modal = $(this)
+        var modal = $(this);
 
-        modal.find("#search").attr('href', phone);
-    });
+        modal.find(".modal-body #phone-contact").attr('href', phone);
+    })
 </script>
 
 @endsection
-
