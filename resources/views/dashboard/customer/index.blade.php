@@ -55,9 +55,14 @@
                                 {{-- <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
                                     <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
                                 </button> --}}
-                                <a href="#" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
+                                {{-- <a href="#" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
                                     <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
-                                </a>
+                                </a> --}}
+                                <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact"
+                                data-name="{{ $customer->name }}"
+                                data-phone="{{ $customer->phone }}">
+                                    <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
+                                </button>
                             </td>
                             <td>
                                 {{ $customer->created_at }}
@@ -139,7 +144,7 @@
           </button>
         </div>
         <div class="modal-body mx-4">
-            <a href="#" id="phone-contact" class="btn btn-block btn-slack btn-icon">
+            <a href="#" target="_blank" id="phone-contact" class="btn btn-block btn-slack btn-icon">
                 <span class="btn-inner--icon"><i class="fab fa-whatsapp"></i></span>
                 <span class="btn-inner--text">Whats App</span>
             </a>
@@ -163,15 +168,21 @@
     </div>
 </div>
 
+@endsection
+
+@section('page-js')
+
 <script>
-    $('#modal-contact').on('show', function(event) {
-        var link = $(event.relatedTarget)
-        var phone = link.data('phone')
+    $('#modal-contact').on('show.bs.modal', function (event) {
+        var link = $(event.relatedTarget);
+        var name = link.data("name");
+        var phone = link.data("phone");
+        var message = 'Halo%20' + name;
 
-        var modal = $(this)
+        var modal = $(this);
 
-        modal.find("#search").attr('href', phone);
-    });
+        modal.find(".modal-body #phone-contact").attr('href', 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + message + ' ,anda punya hutang');
+    })
 </script>
 
 @endsection
