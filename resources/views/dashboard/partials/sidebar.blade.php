@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('products*') ? 'active' : '' }} {{ Request::is('categories*') ? 'active' : '' }}" href="#navbar-products" data-toggle="collapse" role="button" aria-expanded="false"
+                <a class="nav-link {{ Request::is('products*') ? 'active' : '' }} {{ Request::is('categories*') ? 'active' : '' }} {{ Request::is('problems*') ? 'active' : '' }}" href="#navbar-products" data-toggle="collapse" role="button" aria-expanded="false"
                 aria-controls="navbar-products">
                     <i class="ni ni-box-2 text-orange"></i>
                     <span class="nav-link-text">Barang</span>
@@ -48,7 +48,7 @@
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="/product-problems" class="nav-link {{ Request::is('products/problem*') ? 'active' : '' }}">
+                    <a href="{{ route('problems.index') }}" class="nav-link {{ Request::is('problems*') ? 'active' : '' }}">
                         <span class="sidenav-mini-icon"> B </span>
                         <span class="sidenav-normal"> Barang Bermasalah </span>
                     </a>

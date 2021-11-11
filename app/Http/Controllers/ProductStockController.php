@@ -42,13 +42,17 @@ class ProductStockController extends Controller
         $status = 'add';
         $updated_stock = 0;
 
+        if ((int) request()->amount == 0) {
+            return redirect()->back()->with('cant_be_zero', 'Hanya boleh lebih/kurang dari stok saat ini');
+        }
+
         if (request()->amount === $stock->amount) {
             return redirect()->back()->with('same_amount', 'Jumlah stok tidak boleh sama dengan saat ini');
         }
 
         if(request()->amount < $stock->amount) {
             if($stock->amount === 0) {
-                return redirect()->back()->with('negative_not_allowed', 'Stok tersisa tidak boleh kurang dari 0');
+                return redirect()->back()->with('negative_not_allowed', 'Stok tersisa saat ini tidak boleh kurang dari 0');
             } else {
                 $updated_stock = $stock->amount - abs(request()->amount);
                 $message = 'Stok dikurangi '.request()->amount;

@@ -71,19 +71,26 @@
                                 @method('put')
                                 @csrf
                                 <div class="form-group">
+                                    {{-- Nilai tidak boleh 0 --}}
+                                    @if (session()->has('cant_be_zero'))
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Maaf! </strong> {{ session('cant_be_zero') }}
+                                        </div>
+                                    @endif
                                     {{-- Jika nilai yang diinputkan sama maka batalkan --}}
                                     @if (session()->has('same_amount'))
                                         <div class="alert alert-danger" role="alert">
                                             <strong>Maaf! </strong> {{ session('same_amount') }}
                                         </div>
                                     @endif
+                                    {{-- Jika total saat ini tidak boleh negatif --}}
                                     @if (session()->has('negative_not_allowed'))
                                         <div class="alert alert-danger" role="alert">
                                             <strong>Maaf! </strong> {{ session('negative_not_allowed') }}
                                         </div>
                                     @endif
                                     <label for="data-stock" class="text-muted" style="font-size: 14px;">Tambahkan minus (-) untuk kurangi (misal: -5)</label>
-                                    <input name="amount" type="number" class="form-control @error('amount') is-invalid @enderror" id="data-stock" placeholder="Masukkan jumlah" value="{{ old('amount', $product->stock->amount) }}" required>
+                                    <input name="amount" type="number" class="form-control @error('amount') is-invalid @enderror" id="data-stock" placeholder="Masukkan jumlah" value="{{ old('amount', 0) }}" required>
                                     @error('amount')
                                         <div class="invalid-feedback">
                                             {{ $message }}

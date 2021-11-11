@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductProblemController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductStockController;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('suppliers/checkSlug', [SupplierController::class, 'checkSlug']);
     Route::get('customers/checkSlug', [CustomerController::class, 'checkSlug']);
 
+    Route::resource('problems', ProductProblemController::class);
     Route::resource('products.stock', ProductStockController::class)->only(['index', 'update']);
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
