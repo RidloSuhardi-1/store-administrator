@@ -26,6 +26,11 @@ class Supplier extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class);
+    }
+
     /**
      * Get the route key for the model.
      *

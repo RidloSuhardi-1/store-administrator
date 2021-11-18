@@ -21,6 +21,11 @@ class Product extends Model
         ];
     }
 
+    public function product_problem()
+    {
+        return $this->hasMany(ProductProblem::class);
+    }
+
     public function supplier()
     {
         return $this->hasOne(Supplier::class, 'id', 'supplier_id');
@@ -34,6 +39,11 @@ class Product extends Model
     public function stock()
     {
         return $this->hasOne(ProductStock::class);
+    }
+
+    public function purchase_detail()
+    {
+        return $this->belongsTo(PurchaseDetail::class);
     }
 
     /**
