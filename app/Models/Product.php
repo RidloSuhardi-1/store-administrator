@@ -41,6 +41,11 @@ class Product extends Model
         return $this->hasOne(ProductStock::class);
     }
 
+    public function purchase_detail()
+    {
+        return $this->belongsTo(PurchaseDetail::class);
+    }
+
     /**
      * Get the route key for the model.
      *
