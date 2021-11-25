@@ -62,7 +62,15 @@ class PurchaseController extends Controller
     public function update(Request $request, $id)
     {
         $purchase = Purchase::find($id);
-        $purchase->supplier_id = $request->supplier_id;
+
+        if ($request->supplier_id) {
+            $purchase->supplier_id = $request->supplier_id;
+        }
+
+        if ($request->status) {
+            $purchase->status = $request->status;
+        }
+
         $purchase->save();
 
         return redirect()->route('purchases.index')->with('update_success', 'Berhasil diperbarui!');

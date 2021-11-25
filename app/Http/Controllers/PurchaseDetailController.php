@@ -16,7 +16,6 @@ class PurchaseDetailController extends Controller
      */
     public function index(Purchase $purchase)
     {
-        // return PurchaseDetail::where('purchase_id', $purchase->id)->get();
         return view('dashboard.purchase_detail.index', [
             'title' => 'Detail Pembelian',
             'products' => Product::all(),
@@ -51,13 +50,67 @@ class PurchaseDetailController extends Controller
             'amount' => 'required|min:1'
         ]);
 
-        foreach ($request->product_id as $product) {
+        // Update data detail pembelian
+
+        $existingPurchaseDetail = PurchaseDetail::firstWhere('product_id', $request->product_id);
+        $result = 0;
+
+        // Jika barang yang dibeli belum ada sama sekali
+        if ($existingPurchaseDetail == null) {
             PurchaseDetail::create([
                 'purchase_id' => $request->purchase_id,
-                'product_id' => $product,
+                'product_id' => $request->product_id,
                 'amount' => $request->amount
             ]);
+        } else {
+            // Jika barang ada maka update, jika tidak maka buat baru
+            if ($request->product_id != $existingPurchaseDetail->product_id) {
+                PurchaseDetail::create([
+                    'purchase_id' => $request->purchase_id,
+                    'product_id' => $request->product_id,
+                    'amount' => $request->amount
+                ]);
+            } else {
+                $result = $existingPurchaseDetail->amount + $request->amount;
+
+                $existingPurchaseDetail->amount = $result;
+                $existingPurchaseDetail->save();
+            }
         }
+
+        // Update data pembelian
+
+        $productList = []; // menampung keseluruhan data barang yang ada di detail pembelian
+        $amountList = [];
+        $total = 0; // menghitung total harga barang
+        $productOnModel = PurchaseDetail::where('purchase_id', $request->purchase_id)->get();
+
+        if (!$productOnModel) {
+            // masukkan semua data barang ke array
+            for ($i=0; $i < count($productOnModel); $i++) {
+                $productList[$i] = Product::find($productOnModel[$i]->product_id);
+            }
+
+            for ($j=0; $j < count($productOnModel); $j++) {
+                $amountList[$j] = $productOnModel[$j]->amount;
+            }
+
+            // hitung harga barang keseluruhan
+            for ($k=0; $k < count($productList); $k++) {
+                $total += $productList[$k]->buy_price * $amountList[$k];
+            }
+
+            echo $total;
+
+        } else {
+            $newProductPrice = Product::find($request->product_id);
+            $total += $newProductPrice->buy_price * $request->amount;
+        }
+
+        $existingPurchase = Purchase::find($request->purchase_id);
+        $existingPurchase->amount = PurchaseDetail::where('purchase_id', $request->purchase_id)->count();
+        $existingPurchase->total_price = $total;
+        $existingPurchase->save();
 
         return redirect()->back()->with('add_success', 'Berhasil ditambahkan!');
     }
@@ -102,9 +155,41 @@ class PurchaseDetailController extends Controller
      * @param  \App\Models\PurchaseDetail  $purchaseDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseDetail $purchaseDetail)
+    public function destroy(Purchase $purchase, PurchaseDetail $purchaseDetail, $id)
     {
-        PurchaseDetail::destroy($purchaseDetail);
+        PurchaseDetail::destroy($id);
+
+        // Update data pembelian
+
+        $productList = []; // menampung keseluruhan data barang yang ada di detail pembelian
+        $amountList = [];
+        $total = 0; // menghitung total harga barang
+        $productOnModel = PurchaseDetail::where('purchase_id', $purchase->id)->get();
+
+        if (!$productOnModel) {
+
+            // masukkan semua data barang ke array
+            for ($i=0; $i < count($productOnModel); $i++) {
+                $productList[$i] = Product::find($productOnModel[$i]->product_id);
+            }
+
+            for ($j=0; $j < count($productOnModel); $j++) {
+                $amountList[$j] = $productOnModel[$j]->amount;
+            }
+
+            // hitung harga barang keseluruhan
+            for ($k=0; $k < count($productList); $k++) {
+                $total += $productList[$k]->buy_price * $amountList[$k];
+            }
+
+        } else {
+            $total = 0;
+        }
+
+        $existingPurchase = Purchase::find($purchase->id);
+        $existingPurchase->amount = PurchaseDetail::where('purchase_id', $purchase->id)->count();
+        $existingPurchase->total_price = $total;
+        $existingPurchase->save();
 
         return redirect()->back();
     }

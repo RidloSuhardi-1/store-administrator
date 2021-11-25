@@ -90,14 +90,14 @@
                             </tfoot>
                             <tbody>
                                 @if ($purchase_details->isNotEmpty())
-                                    @foreach ($purchase_details as $pd)
+                                    @foreach ($purchase_details as $purchaseDetail)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pd->product[0]->name }}</td>
-                                            <td>{{ $pd->product[0]->buy_price }}</td>
-                                            <td>{{ $pd->amount }}</td>
+                                            <td>{{ $purchaseDetail->product[0]->name }}</td>
+                                            <td>{{ $purchaseDetail->product[0]->buy_price }}</td>
+                                            <td>{{ $purchaseDetail->amount }}</td>
                                             <td class="table-actions">
-                                                <form action="{{ route('purchase.details.destroy', ['purchase'=>$purchase->created_at, 'detail'=>$pd]) }}" method="post">
+                                                <form action="{{ route('purchase.details.destroy', ['purchase'=>$purchase->created_at, 'detail'=>$purchaseDetail->id, 'id'=>$purchaseDetail->id]) }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-link table-action table-action-delete">
@@ -152,7 +152,6 @@
                                 </nav>
                               </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -166,18 +165,18 @@
                         </div>
                         <!-- Card body -->
                         <div class="card-body">
-                            <form action="{{ route('purchase.details.store', $purchase->id) }}" method="POST" class="needs-validation" novalidate>
+                            <form action="{{ route('purchase.details.store', $purchase->id) }}" method="POST" class="needs-validation input_fields_wrap" novalidate>
                                 @csrf
                                 <div class="form-group">
                                     <input type="hidden" name="purchase_id" value="{{ $purchase->id }}">
                                     <div class="row">
                                         <div class="col">
-                                            <select multiple name="product_id[]" class="form-control selectpicker @error('product_id') is-invalid @enderror" id="product_id" data-live-search="true" data-actions-box="true">
+                                            <select name="product_id" class="form-control selectpicker @error('product_id') is-invalid @enderror" data-live-search="true" data-actions-box="true">
                                                 @foreach ($products as $product)
                                                     @if (old('product_id') === $product->id)
-                                                        <option value="{{ $supplier->id }}" selected>{{ $product->name }}</option>
+                                                        <option value="{{ $supplier->id }}" data-display-below-text="Harga beli: {{ $product->buy_price }}" selected>{{ $product->name }}</option>
                                                     @else
-                                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                        <option value="{{ $product->id }}" data-display-below-text="Harga beli: {{ $product->buy_price }}">{{ $product->name }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -197,7 +196,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-block" type="submit">Tambah</button>
+                                <button class="btn btn-primary btn-block" type="submit">Simpan</button>
                             </form>
                         </div>
                     </div>
@@ -209,4 +208,3 @@
 </div>
 
 @endsection
-

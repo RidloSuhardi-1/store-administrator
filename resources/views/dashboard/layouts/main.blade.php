@@ -77,10 +77,10 @@
   <script src="{{ url('assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
   <script src="{{ url('assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
   <!-- Optional JS -->
-  <script src="{{ url('assets/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
   <script src="{{ url('assets/js/bootstrap-select.min.js') }}"></script>
-  <script src="{{ url('assets/vendor/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ url('assets/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
   <script src="{{ url('assets/vendor/chart.js/dist/Chart.extension.js') }}"></script>
+  <script src="{{ url('assets/vendor/chart.js/dist/Chart.min.js') }}"></script>
   <!-- Argon JS -->
   <script src="{{ url('assets/js/argon.min23cd.js?v=1.2.1') }}"></script>
   <!-- Demo JS - remove this in your project -->
