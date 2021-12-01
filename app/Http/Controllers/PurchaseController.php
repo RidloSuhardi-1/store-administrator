@@ -84,7 +84,20 @@ class PurchaseController extends Controller
      */
     public function destroy($id)
     {
+        $pd = PurchaseDetail::firstWhere('purchase_id', $id)->get();
+        return $pd->id;
         Purchase::destroy($id);
+
+        $pdID = [];
+        $pd = PurchaseDetail::firstWhere('purchase_id', $id)->get();
+
+        for ($i=0; $i < count($pd); $i++) {
+            $pdID[$i] = $pd->id;
+        }
+
+        for ($i=0; $i < $pdID; $i++) {
+            PurchaseDetail::destroy($pdID[$i]);
+        }
 
         return redirect()->route('purchases.index')->with('delete_success', 'Berhasil dihapus!');
     }
