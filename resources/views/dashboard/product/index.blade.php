@@ -27,7 +27,8 @@
                 <th>No</th>
                 <th>Foto</th>
                 <th>Nama</th>
-                <th>Harga</th>
+                <th>Harga Beli</th>
+                <th>Harga Jual</th>
                 <th>Stok</th>
                 <th>Created at</th>
                 <th></th>
@@ -38,7 +39,8 @@
                 <th>No</th>
                 <th>Foto</th>
                 <th>Nama</th>
-                <th>Harga</th>
+                <th>Harga Beli</th>
+                <th>Harga Jual</th>
                 <th>Stok</th>
                 <th>Created at</th>
                 <th></th>
@@ -53,7 +55,8 @@
                                 <img src="{{ asset($product->image) }}" class="avatar">
                             </td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->sell_price }}</td>
+                            <td>Rp. {{ number_format($product->buy_price, 2, ',', '.') }}</td>
+                            <td>Rp. {{ number_format($product->sell_price, 2, ',', '.') }}</td>
                             <td>
                                 <a href="{{ route('products.stock.index', $product->slug) }}" class="btn btn-sm btn-default btn-round btn-icon" data-toggle="tooltip" data-original-title="Klik untuk tinjau stok">
                                 <span class="btn-inner--icon"><i class="fas fa-archive"></i></span>
@@ -67,8 +70,8 @@
                                 data-name="{{ $product->name }}"
                                 data-unit="{{ $product->unit }}"
                                 data-supplier="{{ $product->supplier->name }}"
-                                data-sell_price="{{ $product->sell_price }}"
-                                data-buy_price="{{ $product->buy_price }}"
+                                data-sell_price="Rp. {{ number_format($product->sell_price, 2, ',', '.') }}"
+                                data-buy_price="Rp. {{ number_format($product->buy_price, 2, ',', '.') }}"
                                 data-type="{{ $product->category->name }}"
                                 >
                                     <i class="fas fa-eye"></i>
