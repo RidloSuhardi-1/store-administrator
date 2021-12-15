@@ -14,7 +14,10 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => 'Umum',
+            'slug' => 'umum',
+            'address' => $this->faker->text(5),
+            'phone' => $this->faker->unique()->phoneNumber()
         ];
     }
 }

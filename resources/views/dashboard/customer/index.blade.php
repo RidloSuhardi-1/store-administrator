@@ -44,7 +44,7 @@
                 </tr>
             </tfoot>
             <tbody>
-                @if ($customers->isNotEmpty())
+                @if (count($customers) > 1)
                     @foreach ($customers as $customer)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
