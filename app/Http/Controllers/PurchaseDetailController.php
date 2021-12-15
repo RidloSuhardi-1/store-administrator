@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseDetail;
 use Illuminate\Http\Request;
-
+use PDF;
 class PurchaseDetailController extends Controller
 {
     /**
@@ -194,5 +194,14 @@ class PurchaseDetailController extends Controller
         $existingPurchase->save();
 
         return redirect()->back();
+    }
+
+    // Generate PDF
+    public function createPDF($id) {
+        $purchase = Purchase::where('id', $id)->get();
+        $data = PurchaseDetail::where('purchase_id', $id)->get();
+        // return view('dashboard.purchase_detail.pdf.invoice', ['purchase_details' => $data, 'purchases' => $purchase[0]]);
+        $pdf = PDF::loadView('dashboard.purchase_detail.pdf.invoice', ['purchase_details' => $data, 'purchases' => $purchase[0]]);
+        return $pdf->setPaper('a4', 'landscape')->setWarnings(false)->download('purchase_invoice_'.$purchase[0]->created_at.'.pdf');
     }
 }

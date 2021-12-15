@@ -59,7 +59,7 @@
                                 </a>
                             </td>
                             <td>
-                                Rp. {{ $purchase->total_price }}
+                                Rp. {{ number_format($purchase->total_price, 2, ',', '.') }}
                             </td>
                             <td>
                                 <span class="mb-0 badge
@@ -77,7 +77,8 @@
                                 data-supplier="{{ $purchase->supplier->name }}"
                                 data-amount="{{ $purchase->amount }}"
                                 data-purchase-link="{{ route('purchase.details.index', $purchase->created_at) }}"
-                                data-purchase-total={{ $purchase->total_price }}
+                                data-purchase-total={{ number_format($purchase->total_price, 2, ',', '.') }}
+                                data-purchase-invoice={{ route('purchase.invoice', $purchase->id) }}
                                 data-action={{ route('purchases.update', $purchase->id) }}>
                                     <span class="btn-inner--icon"><i class="fas fa-clipboard-list"></i></span>
                                     <span class="btn-inner--text">Tinjau Detail Pembelian</span>
@@ -236,7 +237,7 @@
                 <button type="submit" class="btn btn-danger">Tandai selesai</button>
             </form>
             <div class="row">
-                <a href="" class="btn btn-primary">Cetak Lampiran</a>
+                <a href="#" class="btn btn-primary purchase-invoice" target="_blank"><i class="fas fa-print"></i>  Cetak Lampiran</a>
                 <div class="col">
                     <a href="" class="btn btn-success">
                         Hubungi
@@ -253,7 +254,7 @@
 @section('page-js')
 
 <script>
-    // Purchase
+    // Add or update purchase modal
     $('#modal-purchase').on('show.bs.modal', function (event) {
         var link = $(event.relatedTarget);
         var supplier = link.data("supplier");
@@ -292,14 +293,15 @@
 
     });
 
-    // Detail Purchase
+    // Detail purchase modal
     $('#modal-view-purchase').on('show.bs.modal', function (event) {
         var link = $(event.relatedTarget);
         var supplier = link.data("supplier");
         var amount = link.data("amount");
         var purchase_link = link.data("purchase-link");
         var purchase_total = link.data("purchase-total");
-        var action = link.data("action");
+        var purchase_invoice = link.data("purchase-invoice")
+        var action = link.data("action")
 
         var modal = $(this);
 
@@ -309,6 +311,7 @@
         modal.find(".modal-body .row .col .purchase-link").attr('href', purchase_link);
         modal.find(".modal-body #purchase-total").text("Rp. " + purchase_total);
         modal.find(".modal-footer .modal-form").attr('action', action);
+        modal.find(".purchase-invoice").attr('href', purchase_invoice);
 
         // if (supplier != null) {
         //     modal.find(".modal-body .supplier").text("* Sebelumnya " + supplier);

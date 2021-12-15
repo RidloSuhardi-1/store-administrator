@@ -37,7 +37,7 @@
                                 <small class="text-uppercase text-muted font-weight-bold">Total harga</small>
                             </div>
                             <div class="col-sm-8">
-                                <span class="mb-0">Rp. {{ $purchase->total_price }}</span>
+                                <span class="mb-0">Rp. {{ number_format($purchase->total_price, 2, ',', '.') }}</span>
                             </div>
                         </div>
                         <!-- Row 3 -->
@@ -65,7 +65,17 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header">
-                            <h3 class="mb-0">Daftar Pembelian Barang</h3>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3 class="mb-0">Daftar Barang</h3>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="{{ route('purchase.invoice', $purchase->id) }}" class="btn btn-sm btn-primary btn-round btn-icon" data-toggle="tooltip" data-original-title="Kembali">
+                                        <span class="btn-inner--icon"><i class="fas fa-print"></i></span>
+                                        <span class="btn-inner--text">Cetak Faktur</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <!-- Card body -->
                         <div class="table-responsive">
@@ -76,7 +86,9 @@
                                     <th>Nama</th>
                                     <th>Harga Beli</th>
                                     <th>Jumlah</th>
-                                    <th></th>
+                                    @if ($purchase->status === "pending")
+                                        <th></th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tfoot>
@@ -85,7 +97,9 @@
                                     <th>Nama</th>
                                     <th>Harga Beli</th>
                                     <th>Jumlah</th>
-                                    <th></th>
+                                    @if ($purchase->status === "pending")
+                                        <th></th>
+                                    @endif
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -94,17 +108,19 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $purchaseDetail->product[0]->name }}</td>
-                                            <td>{{ $purchaseDetail->product[0]->buy_price }}</td>
+                                            <td>{{ number_format($purchaseDetail->product[0]->buy_price, 2, ',', '.') }}</td>
                                             <td>{{ $purchaseDetail->amount }}</td>
-                                            <td class="table-actions">
-                                                <form action="{{ route('purchase.details.destroy', ['purchase'=>$purchase->created_at, 'detail'=>$purchaseDetail->id, 'id'=>$purchaseDetail->id]) }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-link table-action table-action-delete">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
+                                            @if ($purchase->status === "pending")
+                                                <td class="table-actions">
+                                                    <form action="{{ route('purchase.details.destroy', ['purchase'=>$purchase->created_at, 'detail'=>$purchaseDetail->id, 'id'=>$purchaseDetail->id]) }}" method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-link table-action table-action-delete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @else
@@ -196,7 +212,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-block" type="submit">Simpan</button>
+                                @if ($purchase->status === "pending")
+                                    <button class="btn btn-primary btn-block" type="submit">Simpan</button>
+                                @else
+                                    <button class="btn btn-primary btn-block" type="submit" disabled>Pembelian Selesai</button>
+                                @endif
                             </form>
                         </div>
                     </div>
