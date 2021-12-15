@@ -46,41 +46,43 @@
             <tbody>
                 @if (count($customers) > 1)
                     @foreach ($customers as $customer)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $customer->name }}</td>
-                            <td>{{ $customer->address }}</td>
-                            <td>{{ $customer->phone }}</td>
-                            <td>
-                                {{-- <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
-                                    <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
-                                </button> --}}
-                                {{-- <a href="#" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
-                                    <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
-                                </a> --}}
-                                <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact"
-                                data-name="{{ $customer->name }}"
-                                data-phone="{{ $customer->phone }}">
-                                    <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
-                                </button>
-                            </td>
-                            <td>
-                                {{ $customer->created_at }}
-                            </td>
-                            <td class="table-actions d-flex">
-                                <a href="{{ route('customers.edit', $customer->slug) }}" class="btn btn-link table-action">
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
-                                <form action="{{ route('customers.destroy', $customer->slug) }}" method="post">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-link table-action table-action-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                            @if ($customer->slug !== "umum")
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->address }}</td>
+                                    <td>{{ $customer->phone }}</td>
+                                    <td>
+                                        {{-- <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
+                                            <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
+                                        </button> --}}
+                                        {{-- <a href="#" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact" data-phone={{ $customer->phone }}>
+                                            <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
+                                        </a> --}}
+                                        <button type="button" class="btn btn-sm btn-success btn-icon-only" data-toggle="modal" data-target="#modal-contact"
+                                        data-name="{{ $customer->name }}"
+                                        data-phone="{{ $customer->phone }}">
+                                            <span class="btn-inner--icon"><i class="fas fa-phone"></i></span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        {{ $customer->created_at }}
+                                    </td>
+                                    <td class="table-actions d-flex">
+                                        <a href="{{ route('customers.edit', $customer->slug) }}" class="btn btn-link table-action">
+                                            <i class="fas fa-user-edit"></i>
+                                        </a>
+                                        <form action="{{ route('customers.destroy', $customer->slug) }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-link table-action table-action-delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
                 @else
                     <tr>
                         <td colspan="7" class="text-center">
