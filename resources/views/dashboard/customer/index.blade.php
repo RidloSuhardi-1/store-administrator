@@ -183,7 +183,7 @@
 
         var modal = $(this);
 
-        modal.find(".modal-body #phone-contact").attr('href', 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + message + ' ,anda punya hutang');
+        modal.find(".modal-body #phone-contact").attr('href', 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + message + ' , saya ingin pesan');
     })
 </script>
 
