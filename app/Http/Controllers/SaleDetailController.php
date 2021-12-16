@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Models\SaleDetail;
 use App\Models\Product;
+use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -117,6 +118,10 @@ class SaleDetailController extends Controller
         $existingSale->total_price = $total;
         $existingSale->save();
 
+        $product = ProductStock::firstWhere('product_id', $request->product_id);
+        $product->amount -= $request->amount;
+        $product->save();
+
         return redirect()->back()->with('add_success', 'Berhasil ditambahkan!');
     }
 
@@ -162,6 +167,12 @@ class SaleDetailController extends Controller
      */
     public function destroy(Sale $sale, SaleDetail $saleDetail, $id)
     {
+        $sale_detail = SaleDetail::find($id);
+
+        $product = ProductStock::firstWhere('product_id', $sale_detail->product_id);
+        $product->amount += $sale_detail->amount;
+        $product->save();
+
         SaleDetail::destroy($id);
 
         // Update data penjualan

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use Illuminate\Http\Request;
 use App\lib\invoiceFunction;
 
@@ -108,6 +109,19 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
+        $sd = SaleDetail::firstWhere('sale_id', $sale->id)->get();
+        $sdID = [];
 
+        for ($i=0; $i < count($sd); $i++) {
+            $sdID[$i] = $sd->id;
+        }
+
+        for ($i=0; $i < $sdID; $i++) {
+            saleDetail::destroy($sdID[$i]);
+        }
+
+        Sale::destroy($sale->id);
+
+        return redirect()->route('purchases.index')->with('delete_success', 'Berhasil dihapus!');
     }
 }
