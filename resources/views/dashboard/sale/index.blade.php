@@ -81,7 +81,7 @@
                                 data-sale="{{ $sale->customer->name }}">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
-                                <form action="{{ route('sales.destroy', $sale->id) }}" method="post">
+                                <form action="{{ route('sales.destroy', $sale->invoice_no) }}" method="post">
                                     @method('delete')
                                     @csrf
                                     <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-link table-action table-action-delete">
