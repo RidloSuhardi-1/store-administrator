@@ -24,8 +24,8 @@
                     <td>: {{ $purchases->created_at }}</td>
                 </tr>
                 <tr scope="col">
-                    <td>Nomor Order</td>
-                    <td>: </td>
+                    <td>Pemasok</td>
+                    <td>: {{ $purchases->supplier->name }}</td>
                 </tr>
             </tbody>
         </table>
