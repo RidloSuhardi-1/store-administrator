@@ -161,7 +161,6 @@ class PurchaseDetailController extends Controller
     public function destroy(Purchase $purchase, PurchaseDetail $purchaseDetail, $id)
     {
         PurchaseDetail::destroy($id);
-
         // Update data pembelian
 
         $productList = []; // menampung keseluruhan data barang yang ada di detail pembelian
