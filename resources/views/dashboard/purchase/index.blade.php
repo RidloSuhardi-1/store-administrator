@@ -312,28 +312,6 @@
         modal.find(".modal-body #purchase-total").text("Rp. " + purchase_total);
         modal.find(".modal-footer .modal-form").attr('action', action);
         modal.find(".purchase-invoice").attr('href', purchase_invoice);
-
-        // if (supplier != null) {
-        //     modal.find(".modal-body .supplier").text("* Sebelumnya " + supplier);
-        //     modal.find(".modal-body .modal-button").html('Perbarui Pemasok Pembelian');
-        //     modal.find(".modal-body .modal-form").attr('action', action);
-        //     modal.find(".modal-body .modal-form").prepend('<input type="hidden" id="put-method" name="_method" value="put">');
-
-
-        //     modal.find("#name-title").text("Ganti pemasok");
-
-        //     console.log('Update');
-        // } else {
-        //     modal.find(".modal-body .supplier").text("");
-        //     modal.find(".modal-body .modal-button").html('Buat Pembelian');
-        //     modal.find(".modal-body .modal-form").attr('action', action);
-        //     modal.find(".modal-body #action-method").text("");
-        //     modal.find(".modal-body .modal-form #put-method").remove();
-
-        //     modal.find("#modal-title-default").text("Buat Pembelian Baru");
-
-        //     console.log('Save');
-        // }
     });
 
 </script>
