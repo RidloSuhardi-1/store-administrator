@@ -239,7 +239,7 @@
             <div class="row">
                 <a href="#" class="btn btn-primary purchase-invoice" target="_blank"><i class="fas fa-print"></i>  Cetak Lampiran</a>
                 <div class="col">
-                    <a href="" class="btn btn-success">
+                    <a href="#" class="btn btn-success phone-contact" target="_blank">
                         Hubungi
                     </a>
                 </div>
@@ -301,6 +301,8 @@
         var purchase_link = link.data("purchase-link");
         var purchase_total = link.data("purchase-total");
         var purchase_invoice = link.data("purchase-invoice")
+        var phone = link.data("phone");
+        var message = 'Halo%20' + name + ', saya ingin pesan dengan detail yang kami lampirkan';
         var action = link.data("action")
 
         var modal = $(this);
@@ -311,6 +313,7 @@
         modal.find(".modal-body .row .col .purchase-link").attr('href', purchase_link);
         modal.find(".modal-body #purchase-total").text("Rp. " + purchase_total);
         modal.find(".modal-footer .modal-form").attr('action', action);
+        modal.find(".modal-footer .phone-contact").attr('href', 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + message);
         modal.find(".purchase-invoice").attr('href', purchase_invoice);
     });
 
