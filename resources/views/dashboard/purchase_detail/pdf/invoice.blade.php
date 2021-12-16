@@ -15,25 +15,21 @@
 
     <div class="container-fluid mt-5">
 
-        <div class="row">
-            <div class="col">
-                <h2>Faktur Pembelian</h2>
-            </div>
-            <div class="col">
-                <table class="table table-sm table-borderless">
-                    <tbody>
-                        <tr scope="col">
-                            <td>Tanggal Order</td>
-                            <td>: {{ $purchases->created_at }}</td>
-                        </tr>
-                        <tr scope="col">
-                            <td>Nomor Order</td>
-                            <td>: </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <h2>Faktur Pembelian</h2>
+
+        <table class="table table-sm table-borderless">
+            <tbody>
+                <tr scope="col">
+                    <td>Tanggal Order</td>
+                    <td>: {{ $purchases->created_at }}</td>
+                </tr>
+                <tr scope="col">
+                    <td>Nomor Order</td>
+                    <td>: </td>
+                </tr>
+            </tbody>
+        </table>
+
         <hr class="my-2">
         <table class="table table-sm table-borderless">
             <tbody>
