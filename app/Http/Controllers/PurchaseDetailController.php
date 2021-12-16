@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseDetail;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use PDF;
 class PurchaseDetailController extends Controller
@@ -40,10 +41,10 @@ class PurchaseDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Sale $sale)
     {
         // $productOnModel = PurchaseDetail::where('purchase_id', $request->purchase_id)->get();
-        // return $productOnModel;
+        // dd($sale);
         if ($request->amount < 1) {
             return redirect()->back()->with('amount_min_one', 'Minimal adalah 1');
         }
