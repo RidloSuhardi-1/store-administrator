@@ -77,7 +77,7 @@
                 <div class="collapse" id="navbar-reports">
                 <ul class="nav nav-sm flex-column">
                     <li class="nav-item">
-                    <a href="/data-sales" class="nav-link">
+                    <a href="{{ route('sales.index') }}" class="nav-link">
                         <span class="sidenav-mini-icon"> P </span>
                         <span class="sidenav-normal">Penjualan</span>
                     </a>
