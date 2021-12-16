@@ -8,6 +8,7 @@ use App\Models\ProductStock;
 use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SaleDetailController;
 use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\ProductProblemController;
 use App\Http\Controllers\PurchaseDetailController;
@@ -55,8 +57,16 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('customers', CustomerController::class);
+
+    Route::get('purchase/details/invoice/{id}', [PurchaseDetailController::class, 'createPDF'])->name('purchase.invoice');
     Route::resource('purchase.details', PurchaseDetailController::class);
+
     Route::resource('purchases', PurchaseController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::get('sale/details/invoice/{id}', [SaleDetailController::class, 'createPDF'])->name('sale.invoice');
+    Route::resource('sale.details', SaleDetailController::class);
+
+    Route::resource('sales', SaleController::class);
 
     Route::delete('/stock/log/{productStockLog}', [ProductStockLogController::class, 'destroy']);
 });
